@@ -5,4 +5,5 @@ export interface AuthResponse {
     user_name: string;
     user_email: string;
     user_role: string;
+    user_img: string;
 }

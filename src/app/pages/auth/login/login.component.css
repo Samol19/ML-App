@@ -3,13 +3,13 @@
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background: linear-gradient(135deg, #cad3c8 0%, #7aca66 100%);
+    background: linear-gradient(135deg, #ccffe6 0%, #ffffff 100%);
     padding: 20px;
 }
 
 .login-card {
     display: flex;
-    background-color: white;
+    background-color: rgb(253, 253, 253);
     border-radius: 20px;
     overflow: hidden;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);

@@ -1,4 +1,5 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { AuthResponse } from '../../shared/models/auth-response.model';
 
 @Injectable({
@@ -6,19 +7,26 @@ import { AuthResponse } from '../../shared/models/auth-response.model';
 })
 export class StorageService {
     private authkey = 'coleXpert_auth';
-
-    constructor() {}
     
+    constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
+
     setAuthData(authData: AuthResponse): void {
-        localStorage.setItem(this.authkey, JSON.stringify(authData));
+        if (isPlatformBrowser(this.platformId)) {
+            localStorage.setItem(this.authkey, JSON.stringify(authData));
+        }
     }
 
     getAuthData(): AuthResponse | null {
-        const data = localStorage.getItem(this.authkey);
-        return data ? JSON.parse(data) as AuthResponse : null;
+        if (isPlatformBrowser(this.platformId)) {
+            const data = localStorage.getItem(this.authkey);
+            return data ? JSON.parse(data) as AuthResponse : null;
+        }
+        return null;
     }
 
     clearAuthData(): void {
-        localStorage.removeItem(this.authkey);
+        if (isPlatformBrowser(this.platformId)) {
+            localStorage.removeItem(this.authkey);
+        }
     }
 }

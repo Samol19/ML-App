@@ -28,6 +28,7 @@ export class NavbarComponent implements OnInit {
   private storageService = inject(StorageService);
   user: AuthResponse | null = null;
   
+  img: string = '';
   isStudent: boolean = false;
   isAdmin: boolean = false;
   isAuthenticated: boolean = false;
@@ -46,7 +47,9 @@ export class NavbarComponent implements OnInit {
     const storedUser = localStorage.getItem('coleXpert_auth');
     if (storedUser) {
       this.user = JSON.parse(storedUser);  // Deserializar el JSON del localStorage
-      console.log('User profile loaded from localStorage:', this.user);
+this.img = this.user?.user_img?.startsWith('data:image') 
+  ? this.user.user_img 
+  : `data:image/png;base64,${this.user?.user_img}`;
     } else {
       this.loadUserProfile();  // Si no se encuentra el usuario, lo cargas desde el servicio
     }
@@ -87,5 +90,7 @@ export class NavbarComponent implements OnInit {
   openCrearSubasta(): void {
     this.router.navigate(['home/create']);
   }
-
+  openCrearItem(): void {
+    this.router.navigate(['home/create-item']);
+  }
 }

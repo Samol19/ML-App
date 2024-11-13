@@ -6,5 +6,4 @@ export interface AuthResponse {
     user_email: string;
     user_img: string;
     user_role: string;
-    user_img: string;
 }

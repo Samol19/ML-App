@@ -55,4 +55,10 @@ export class AuthService {
         }
         return null;
     }
+
+    getUserToken(): string | null {
+        const authData = this.storageService.getAuthData();
+        return authData ? authData.access_token : null; // Devuelve el token si existe
+    }
+    
 }

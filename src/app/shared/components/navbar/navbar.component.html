@@ -1,7 +1,7 @@
 <nav class="navbar-wrapper">
     <div class="navbar-container">
       <div class="navbar-content">
-        <a class="navbar-logo" routerLink="/">
+        <a class="navbar-logo" routerLink="/home">
           <span class="logo-text">Cole</span>
           <span class="logo-highlight">X</span>
           <span class="logo-text">pert</span>
@@ -16,6 +16,16 @@
             </div>
           } @else {
             <div class="navbar-actions">
+              <button class="action-btn filters-btn" (click)="openCrearItem()">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="12" y1="6.05" x2="12" y2="17.95"></line>
+                  <line x1="6.05" y1="12" x2="17.95" y2="12"></line>
+                  
+                  
+                </svg>
+                <span>Crear Item</span>
+              </button>
+
               <button class="action-btn filters-btn" (click)="openCrearSubasta()">
                 <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
                   <line x1="12" y1="6.05" x2="12" y2="17.95"></line>
@@ -49,8 +59,8 @@
                 </button>
   
                 <button class="action-btn profile-btn" routerLink="profile">
-                  <img [src]="user?.user_img" class="profile-img" alt="User Profile">
-                </button>
+                  <img [src]="img" class="profile-img" alt="User Profile">
+                </button>>
   
                 <button class="action-btn logout-btn" (click)="logout()">
                   <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">

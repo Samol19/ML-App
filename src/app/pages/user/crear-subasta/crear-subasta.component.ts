@@ -1,20 +1,22 @@
-import { MaterialModule } from '../../../material/material.module';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Observable } from 'rxjs';
-import { AuthService } from '../../../core/services/auth.service';
+import { MaterialModule } from '../../../material/material.module';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { AuthService } from '../../../core/services/auth.service';
+import { AuctionService } from '../../../core/services/auction.service';
+import { AuctionRequest } from '../../../shared/models/auction-request.model';
 
 @Component({
   selector: 'app-crear-subasta',
   standalone: true,
   imports: [
+    CommonModule,
     ReactiveFormsModule,
     MatCardModule,
     MatFormFieldModule,
@@ -34,6 +36,9 @@ export class CrearSubastaComponent implements OnInit {
     private snackBar: MatSnackBar,
     private router: Router,
     private route: ActivatedRoute,
+    private authService: AuthService,
+    private auctionService: AuctionService // Servicio de AuctionService
+
   ) { }
 
   ngOnInit() {
@@ -43,32 +48,48 @@ export class CrearSubastaComponent implements OnInit {
 
   private initForm(): void {
     this.ofertaForm = this.fb.group({
+      name: ['', Validators.required],
       description: ['', Validators.required],
-      requirements: ['', Validators.required],
-      benefits: ['', Validators.required],
-      title: ['', Validators.required],
-      jobModality_id: ['', Validators.required],
-      salary: ['', Validators.required],
-      location: ['', Validators.required],
-      startDate: [''],
-      endDate: [''],
-      scheduledPublishAt: [''],
-      logo: [''],
-      image: [''],
-      video: [''],
-      status: [''],
-      ofertante_id: ['']
+      start_date: ['',Validators.required],
+      end_date: ['',Validators.required],
+      type: ['', Validators.required],
+      state: ['', Validators.required],
+      item_id: ['',Validators.required]
     });
   }
-
   onSubmit(): void {
     if (this.ofertaForm.valid) {
-      console.log(this.ofertaForm.value);
-      // Implement submission logic here
+      const formValues = this.ofertaForm.value;
+  
+      // Asegúrate de que las fechas sean válidas
+      if (this.isValidDate(formValues.start_date) && this.isValidDate(formValues.end_date)) {
+        formValues.start_date = this.formatDateTime(formValues.start_date);
+        formValues.end_date = this.formatDateTime(formValues.end_date);
+  
+        const auctionData: AuctionRequest = formValues;
+        console.log(auctionData);
+        this.auctionService.createAuction(auctionData).subscribe({
+          next: () => {
+            this.showSnackBar('Subasta creada exitosamente');
+            this.router.navigate(['/home']);
+          },
+          error: (err) => {
+            console.error(err);
+            this.showSnackBar('Error al crear la subasta');
+          }
+        });
+      } else {
+        this.showSnackBar('Las fechas no son válidas.');
+      }
     } else {
       this.showSnackBar('Por favor, complete todos los campos requeridos.');
     }
   }
+  
+  private isValidDate(date: any): boolean {
+    return !isNaN(new Date(date).getTime());
+  }
+  
 
   vistaPrevia(): void {
     console.log('Vista previa', this.ofertaForm.value);
@@ -84,17 +105,28 @@ export class CrearSubastaComponent implements OnInit {
     });
   }
 
-  onFileSelected(event: Event): void {
-    const file = (event.target as HTMLInputElement).files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        const base64String = reader.result as string;
-        this.ofertaForm.patchValue({
-          logo: base64String
-        });
-      };
-      reader.readAsDataURL(file);
+  private convertToISO(date: any): string {
+    if (date) {
+      const isoDate = new Date(date).toISOString();
+      return isoDate;
     }
+    return '';
   }
+
+
+  private formatDateTime(date: Date): string {
+    if (date) {
+      return new Date(date).toISOString();  // Devuelve la fecha en el formato deseado
+    }
+    return '';
+  }
+
+  private formatDate(date: Date): string {
+    return date.toISOString().split('T')[0];
+  }
+  private formatTime(date: Date): string {
+    return date.toTimeString().split(' ')[0].slice(0, 5);
+  }
+  
+  
 }

@@ -29,6 +29,10 @@ export class ItemService {
         return this.http.get<any>(`${this.baseURL}/${id}`, { headers: this.getAuthHeaders() });
     }
 
+    getItemIdByName(name: string): Observable<any> {
+        return this.http.get<{ id: number }>(`${this.baseURL}/name/${name}`, { headers: this.getAuthHeaders() });
+    }
+
     createItem(item: ItemModel): Observable<any> {
         return this.http.post<any>(`${this.baseURL}/`, item, { headers: this.getAuthHeaders() });
     }

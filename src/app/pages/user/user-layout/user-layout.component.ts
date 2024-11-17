@@ -1,16 +1,35 @@
 import { CommonModule } from '@angular/common';
-import { Component,HostListener, Inject, OnInit } from '@angular/core';
+import { Component,HostListener, inject, Inject, OnInit, ViewChild } from '@angular/core';
 import { NavbarComponent } from '../../../shared/components/navbar/navbar.component';
 import { FooterComponent } from '../../../shared/components/footer/footer.component';
-import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { NavigationEnd, RouterLink, RouterLinkActive, RouterOutlet, Router } from '@angular/router';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { isPlatformBrowser } from '@angular/common';
 import { PLATFORM_ID } from '@angular/core';
+import {MatSidenav, MatSidenavModule} from '@angular/material/sidenav';
+import {MatListModule} from '@angular/material/list';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { filter } from 'rxjs';
+import { MatTooltipModule } from '@angular/material/tooltip';
+
 
 @Component({
   selector: 'app-user-layout',
   standalone: true,
-  imports: [CommonModule,NavbarComponent,FooterComponent,RouterOutlet,RouterLink,RouterLinkActive],
+  imports: [
+    CommonModule,
+    RouterOutlet,
+    RouterLink,
+    RouterLinkActive,
+    MatSidenavModule,
+    MatListModule,
+    MatIconModule,
+    MatButtonModule,
+    NavbarComponent,
+    FooterComponent,
+    MatTooltipModule
+  ],
   templateUrl: './user-layout.component.html',
   styleUrl: './user-layout.component.css',
   animations: [
@@ -26,28 +45,32 @@ import { PLATFORM_ID } from '@angular/core';
   ]
 })
 export class UserLayoutComponent implements OnInit{
-
-  isSidebarOpen = true;
+  @ViewChild('sidenav') sidenav!: MatSidenav;
   isMobile = false;
-  constructor(@Inject(PLATFORM_ID) private platformId: any) {}
 
-  @HostListener('window:resize', ['$event'])
-  onResize(event: any) {
-    this.checkScreenSize();
-  }
-
+  private router = inject(Router);
   ngOnInit() {
     this.checkScreenSize();
+    window.addEventListener('resize', () => this.checkScreenSize());
   }
+
   checkScreenSize() {
-    if (isPlatformBrowser(this.platformId)) {
-      // Ahora es seguro usar `window`
-      this.isMobile = window.innerWidth <= 768;
-      this.isSidebarOpen = !this.isMobile;
+    this.isMobile = window.innerWidth <= 768;
+    if (this.sidenav) {
+      if (this.isMobile) {
+        this.sidenav.close();
+      } else {
+        this.sidenav.open();
+      }
     }
   }
 
-  toggleSidebar() {
-    this.isSidebarOpen = !this.isSidebarOpen;
+  closeSidenavOnMobile() {
+    if (this.isMobile) {
+      this.sidenav.close();
+    }
+  }
+  goToRandomAuction() {
+    this.router.navigate(['/auction', 'random']);
   }
 }

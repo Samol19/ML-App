@@ -1,0 +1,8 @@
+<div class="auction-catalog">
+    <h2>Catálogo de Subastas</h2>
+    <div *ngIf="loading">Cargando subastas...</div>
+    <div *ngIf="error" class="error-message">{{ error }}</div>
+    <div class="auction-grid">
+      <app-auction-card *ngFor="let auction of auctions" [auction]="auction"></app-auction-card>
+    </div>
+  </div>

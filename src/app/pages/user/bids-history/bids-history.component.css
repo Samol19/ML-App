@@ -23,7 +23,11 @@
 .bid-detail:last-child {
   border-bottom: none;
 }
-.loading, .error {
+.loading, .error, .no-bids {
   text-align: center;
   padding: 20px;
+}
+.no-bids {
+  font-style: italic;
+  color: #666;
 }

@@ -11,6 +11,8 @@ import { CommonModule } from '@angular/common';
 import { AuthService } from '../../../core/services/auth.service';
 import { AuctionService } from '../../../core/services/auction.service';
 import { AuctionRequest } from '../../../shared/models/auction-request.model';
+import { ItemService } from '../../../core/services/item.service';
+import { ItemResponse } from '../../../shared/models/item-response.model';
 
 @Component({
   selector: 'app-crear-subasta',
@@ -30,6 +32,7 @@ import { AuctionRequest } from '../../../shared/models/auction-request.model';
 export class CrearSubastaComponent implements OnInit {
   ofertaForm!: FormGroup;
   isEditMode: boolean = false;
+  items: ItemResponse[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -37,12 +40,14 @@ export class CrearSubastaComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private authService: AuthService,
+    private itemService: ItemService,
     private auctionService: AuctionService // Servicio de AuctionService
 
   ) { }
 
   ngOnInit() {
     this.initForm();
+    this.loaditems();
     this.isEditMode = false;
   }
 
@@ -55,6 +60,19 @@ export class CrearSubastaComponent implements OnInit {
       type: ['', Validators.required],
       state: ['', Validators.required],
       item_id: ['',Validators.required]
+    });
+  }
+
+  private loaditems(): void {
+    this.itemService.getAllItems().subscribe({
+      next: (items) => {
+        this.items = items;
+        console.log(items);
+      },
+      error: (error) => {
+        console.error('Error loading items:', error);
+        this.showSnackBar('Error al cargar los items');
+      }
     });
   }
   onSubmit(): void {

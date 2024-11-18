@@ -3,6 +3,9 @@
   <div *ngIf="isLoading" class="loading">Cargando pujas...</div>
   <div *ngIf="error" class="error">{{ error }}</div>
   <div *ngIf="!isLoading && !error">
+    <div *ngIf="auctions.length === 0" class="no-bids">
+      No has realizado ninguna puja aún.
+    </div>
     <div *ngFor="let auction of auctions" class="auction-bid-item">
       <app-auction-card [auction]="auction"></app-auction-card>
       <div class="bid-info">

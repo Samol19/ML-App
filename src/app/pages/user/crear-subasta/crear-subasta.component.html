@@ -40,8 +40,9 @@
               <mat-label>Item</mat-label>
               <mat-icon matPrefix>attach_money</mat-icon>
               <mat-select formControlName="item_id">
-                <mat-option value="1">Tecnologia</mat-option>
-                <mat-option value="2">Otro</mat-option>
+                <mat-option *ngFor="let item of items" [value]="item.id">
+                  {{ item.name }}
+                </mat-option>
               </mat-select>
             </mat-form-field>
   

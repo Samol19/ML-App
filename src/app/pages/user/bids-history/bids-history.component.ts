@@ -8,6 +8,8 @@ import { BidResponse } from '../../../shared/models/bid-response.model';
 import { BidsService } from '../../../core/services/bids.service';
 import { AuctionService } from '../../../core/services/auction.service';
 import { forkJoin } from 'rxjs';
+import { AuthResponse } from '../../../shared/models/auth-response.model';
+import { StorageService } from '../../../core/services/storage.service';
 
 @Component({
   selector: 'app-bids-history',
@@ -22,21 +24,29 @@ export class BidsHistoryComponent implements OnInit{
   isLoading = true;
   error: string | null = null;
   expandedAuctions = new Set<string>();
+  currentUser: AuthResponse | null = null;
 
   constructor(
     private bidService: BidsService,
-    private auctionService: AuctionService
+    private auctionService: AuctionService,
+    private storageService: StorageService
   ) {}
 
   ngOnInit() {
-    this.loadBidsAndAuctions();
+    this.currentUser = this.storageService.getAuthData();
+    if (this.currentUser) {
+      this.loadBidsAndAuctions();
+    } else {
+      this.error = 'No se pudo obtener la información del usuario. Por favor, inicia sesión nuevamente.';
+      this.isLoading = false;
+    }
   }
 
   loadBidsAndAuctions() {
     this.isLoading = true;
     this.bidService.getAllBids().subscribe({
       next: (bids) => {
-        this.bids = bids;
+        this.bids = bids.filter(bid => bid.user_name === this.currentUser?.user_name);
         this.loadAuctions();
       },
       error: (err) => {

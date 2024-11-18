@@ -1,105 +1,155 @@
 :host {
-    display: block;
-    min-height: 100vh;
-  }
-  
-  .layout-container {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    background-color: #f0f4f8;
-  }
-  
-  .layout-main {
-    display: flex;
-    flex: 1;
-    position: relative;
-    overflow: hidden;
-  }
-  
+  display: block;
+  height: 100vh;
+}
+
+.layout-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background-color: #f8f9fa;
+}
+
+.sidenav-container {
+  flex: 1;
+  background: transparent;
+}
+
+.sidebar {
+  width: 280px;
+  background: linear-gradient(145deg, #2e7d32, #1b5e20);
+  border: none;
+}
+
+.sidebar-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 0;
+}
+
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.sidebar-logo {
+  height: 50px;
+  object-fit: contain;
+}
+
+.close-sidebar {
+  color: white;
+}
+
+.sidebar-nav {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 0;
+  gap: 0.5rem;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 1.5rem;
+  color: rgba(255,255,255,0.87);
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border-left: 4px solid transparent;
+}
+
+.nav-item:hover {
+  background: rgba(255,255,255,0.1);
+  color: white;
+}
+
+.nav-item.active {
+  background: rgba(255,255,255,0.15);
+  color: white;
+  border-left-color: #4caf50;
+}
+
+.nav-item mat-icon {
+  margin-right: 1rem;
+  opacity: 0.9;
+}
+
+.sidebar-footer {
+  padding: 1.5rem;
+  border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+.create-auction-btn {
+  width: 100%;
+  background-color: #4caf50 !important;
+  color: white;
+  border-radius: 8px;
+  padding: 0.75rem;
+  font-weight: 500;
+  text-transform: none;
+}
+
+.create-auction-btn mat-icon {
+  margin-right: 0.5rem;
+}
+
+.content-wrapper {
+  min-height: 100%;
+  padding: 2rem;
+  position: relative;
+}
+
+.toggle-sidebar {
+  position: fixed;
+  top: 5rem;
+  left: 1rem;
+  z-index: 100;
+  background-color: white;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.main-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-top: 1rem;
+}
+
+.random-auction-btn {
+  width: 100%;
+  background-color: #4caf50 !important;
+  color: white;
+  border-radius: 8px;
+  padding: 0.75rem;
+  font-weight: 500;
+  text-transform: none;
+  transition: all 0.3s ease;
+}
+
+.random-auction-btn:hover {
+  background-color: #45a049 !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+.random-auction-btn mat-icon {
+  margin-right: 0.5rem;
+}
+
+@media (max-width: 768px) {
   .sidebar {
-    width: 250px;
-    background: linear-gradient(135deg, #56af40, #115400);
-    color: white;
-    padding: 2rem 1rem;
-    display: flex;
-    flex-direction: column;
-    transition: transform 0.3s ease-in-out;
+    width: 100%;
+    max-width: 320px;
   }
-  
-  .sidebar-nav {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
+
+  .content-wrapper {
+    padding: 1rem;
   }
-  
-  .nav-item {
-    display: flex;
-    align-items: center;
-    padding: 0.75rem 1rem;
-    color: white;
-    text-decoration: none;
-    border-radius: 8px;
-    transition: background-color 0.2s ease;
+
+  .toggle-sidebar {
+    top: 4.5rem;
   }
-  
-  .nav-item:hover, .nav-item.active {
-    background-color: rgba(255, 255, 255, 0.2);
-  }
-  
-  .nav-item svg {
-    width: 1.5rem;
-    height: 1.5rem;
-    margin-right: 1rem;
-  }
-  
-  .content {
-    flex: 1;
-    padding: 2rem;
-    overflow-y: auto;
-  }
-  
-  .toggle-sidebar, .close-sidebar {
-    background: none;
-    border: none;
-    color: black;
-    cursor: pointer;
-    padding: 0.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: color 0.2s ease;
-  }
-  
-  .toggle-sidebar:hover, .close-sidebar:hover {
-    color: #49c529;
-  }
-  
-  .toggle-sidebar svg, .close-sidebar svg {
-    width: 1.5rem;
-    height: 1.5rem;
-  }
-  
-  .close-sidebar {
-    align-self: flex-end;
-    margin-bottom: 1rem;
-  }
-  
-  @media (max-width: 768px) {
-    .sidebar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      bottom: 0;
-      z-index: 1000;
-      transform: translateX(-100%);
-    }
-  
-    .sidebar-open .sidebar {
-      transform: translateX(0);
-    }
-  
-    .content {
-      padding: 1rem;
-    }
-  }
+}

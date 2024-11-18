@@ -30,7 +30,6 @@ export class NavbarComponent implements OnInit {
   
   img: string = '';
   isStudent: boolean = false;
-  isAdmin: boolean = false;
   isAuthenticated: boolean = false;
   cartItemsCount: number = 0;
 
@@ -40,7 +39,6 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit(): void {
     this.isAuthenticated = true;
-    this.isStudent = true;
 
 
     // Intentar obtener los datos directamente desde el localStorage

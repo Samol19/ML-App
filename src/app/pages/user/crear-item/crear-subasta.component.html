@@ -1,65 +1,65 @@
 <div class="container">
-    <form [formGroup]="ofertaForm" (ngSubmit)="onSubmit()">
-      <div class="form-layout">
-        <!-- Left Column -->
-        <div class="left-column">
-          <div class="form-section">
-            <h2>Título</h2>
-            <mat-form-field appearance="outline" class="full-width">
-              <textarea matInput formControlName="name" rows="4" placeholder="Ingresar texto..."></textarea>
-            </mat-form-field>
-          </div>
-  
-          <div class="form-section">
-            <h2>Descripción</h2>
-            <mat-form-field appearance="outline" class="full-width">
-              <textarea matInput formControlName="description" rows="4" placeholder="Ingresar texto..."></textarea>
-            </mat-form-field>
-          </div>
+  <form [formGroup]="ofertaForm" (ngSubmit)="onSubmit()">
+    <div class="form-layout">
+      <!-- Left Column -->
+      <div class="left-column">
+        <div class="form-section">
+          <h2>Título</h2>
+          <mat-form-field appearance="outline" class="full-width">
+            <textarea matInput formControlName="name" rows="4" placeholder="Ingresar texto..."></textarea>
+          </mat-form-field>
         </div>
-  
-        <!-- Right Column -->
-        <div class="right-column">
-          <div class="action-buttons">
-            <button mat-stroked-button type="button" (click)="vistaPrevia()">
-              <mat-icon>visibility</mat-icon>
-              Vista previa
-            </button>
-            <button mat-flat-button color="primary" type="submit">
-              <mat-icon>save</mat-icon>
-              {{ isEditMode ? 'Actualizar Subasta' : 'Crear Item' }}
-            </button>
-            <button mat-flat-button color="warn" type="button" (click)="salir()">
-              <mat-icon>exit_to_app</mat-icon>
-              Salir
-            </button>
-          </div>
-  
-          <div class="details-section">
-            <mat-form-field appearance="outline" class="full-width">
-              <mat-label>Puja inicial</mat-label>
-              <mat-icon matPrefix>attach_money</mat-icon>
-              <input matInput formControlName="init_price" type="number" placeholder="$/5">
-            </mat-form-field>
-  
-            <div >
-              <mat-form-field appearance="outline">
-                <mat-label>Categoria</mat-label>
-                <mat-icon matPrefix>schedule</mat-icon>
-                <mat-select formControlName="category_id">
-                  <mat-option value="1">Tecnologia</mat-option>
-                  <mat-option value="2">Otro</mat-option>
-                </mat-select>
-              </mat-form-field>
-  
-            </div>
-            <button mat-stroked-button class="upload-button" type="button" (click)="imageInput.click()">
-              <mat-icon>image</mat-icon>
-              Subir imagen
-            </button>
-            <input type="file" #imageInput (change)="onFileSelected($event)" accept="image/*" style="display: none;">
-          </div>
+
+        <div class="form-section">
+          <h2>Descripción</h2>
+          <mat-form-field appearance="outline" class="full-width">
+            <textarea matInput formControlName="description" rows="4" placeholder="Ingresar texto..."></textarea>
+          </mat-form-field>
         </div>
       </div>
-    </form>
-  </div>
+
+      <!-- Right Column -->
+      <div class="right-column">
+        <div class="action-buttons">
+          <button mat-stroked-button type="button" (click)="vistaPrevia()">
+            <mat-icon>visibility</mat-icon>
+            Vista previa
+          </button>
+          <button mat-flat-button color="primary" type="submit">
+            <mat-icon>save</mat-icon>
+            {{ isEditMode ? 'Actualizar Subasta' : 'Crear Item' }}
+          </button>
+          <button mat-flat-button color="warn" type="button" (click)="salir()">
+            <mat-icon>exit_to_app</mat-icon>
+            Salir
+          </button>
+        </div>
+
+        <div class="details-section">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Puja inicial</mat-label>
+            <mat-icon matPrefix>attach_money</mat-icon>
+            <input matInput formControlName="init_price" type="number" placeholder="$/5">
+          </mat-form-field>
+
+          <div>
+            <mat-form-field appearance="outline">
+              <mat-label>Categoria</mat-label>
+              <mat-icon matPrefix>category</mat-icon>
+              <mat-select formControlName="category_id">
+                <mat-option *ngFor="let category of categories" [value]="category.id">
+                  {{ category.name }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <button mat-stroked-button class="upload-button" type="button" (click)="imageInput.click()">
+            <mat-icon>image</mat-icon>
+            Subir imagen
+          </button>
+          <input type="file" #imageInput (change)="onFileSelected($event)" accept="image/*" style="display: none;">
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

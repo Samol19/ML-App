@@ -1,0 +1,30 @@
+<mat-card class="auction-card" (click)="openAuctionDetails()">
+    <div class="auction-image-container">
+      <img [src]="getImageSrc(auction.item.img)" [alt]="auction.item.name" class="auction-image">
+      <div class="auction-overlay">
+        <span class="auction-category">{{ auction.item.category_name }}</span>
+        <span class="auction-state">{{ auction.state }}</span>
+      </div>
+    </div>
+    <mat-card-content class="auction-content">
+      <h3 class="auction-title">{{ auction.name }}</h3>
+      <p class="auction-item">
+        <mat-icon>inventory_2</mat-icon>
+        {{ auction.item.name }}
+      </p>
+      <p class="auction-price">
+        <mat-icon>attach_money</mat-icon>
+        Precio inicial: {{ auction.item.init_price | currency:'S/.' }}
+      </p>
+      <p class="auction-time-remaining">
+        <mat-icon>schedule</mat-icon>
+        {{ timeRemaining }}
+      </p>
+    </mat-card-content>
+    <mat-card-actions class="auction-actions">
+      <button mat-button color="primary" class="details-button">
+        Ver detalles
+        <mat-icon>arrow_forward</mat-icon>
+      </button>
+    </mat-card-actions>
+  </mat-card>

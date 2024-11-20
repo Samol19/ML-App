@@ -6,8 +6,8 @@
       </a>
       <nav class="navmenu">
         <ul>
-          <li><a href="">LightGBM</a></li>
-          <li><a href="sarima" class="active">SARIMAX</a></li>
+          <li><a class="active" href="">LightGBM</a></li>
+          <li><a href="sarimax">SARIMAX</a></li>
           <li><a href="list">Low MarketCap List</a></li>
           <li><a href="#service">Grupo 4</a></li>
         </ul>
@@ -26,8 +26,8 @@
           <div class="hero-buttons">
             <form (ngSubmit)="onSubmit()">
               <input type="text" [(ngModel)]="coinName" name="searchQuery1" placeholder="Ingrese el nombre de la moneda" class="input-text" required>
-              <input type="text" [(ngModel)]="coinSymbol" name="searchQuery2" placeholder="Ingrese el simbolo de la moneda" class="input-text" required>
               <button type="submit" class="btn btn-primary">Buscar</button>
+              <button type="button" class="btn btn-secondary" (click)="openTokenListModal()">Lista de tokens del modelo</button>
             </form>
           </div>
         </div>
@@ -38,6 +38,23 @@
     </div>
   </section>
 
+  <div class="modal" [class.is-active]="isTokenListModalOpen">
+    <div class="modal-background" (click)="closeTokenListModal()"></div>
+    <div class="modal-content">
+      <div class="box">
+        <div class="modal-header">
+          <h2 class="title">Lista de Tokens del Modelo</h2>
+          <button class="modal-close" aria-label="close" (click)="closeTokenListModal()">&times;</button>
+        </div>
+        <div class="modal-body">
+          <ul>
+            <li *ngFor="let token of tokenList">{{ token }}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  
   <section *ngIf="showResults" class="results-section">
     <div class="container">
       <h2 class="section-title">Resultados del Análisis</h2>
@@ -52,20 +69,15 @@
               <tr>
                 <th>Date</th>
                 <th>Name</th>
-                <th>Real Market Cap</th>
                 <th>Predicted Market Cap</th>
-                <th>Absolute Error</th>
-                <th>Percentage Error</th>
+                <th>Change</th>
               </tr>
             </thead>
             <tbody>
               <tr *ngFor="let result of getDisplayedResults()" [ngClass]="{'highlight': result.isHighlighted}">
                 <td>{{ formatDate(result.ds) }}</td>
                 <td>{{ result.name }}</td>
-                <td>{{ formatNumber(result.y_actual) }}</td>
                 <td>{{ formatNumber(result.y_pred) }}</td>
-                <td>{{ formatNumber(result.abs_error) }}</td>
-                <td>{{ formatPercentage(result.percent_error) }}</td>
                 <td>
                   <ng-container *ngIf="result.percent_change !== null">
                     <span [ngClass]="result.percent_change >= 0 ? 'positive-change' : 'negative-change'">

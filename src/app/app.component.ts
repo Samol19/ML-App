@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Inject, PLATFORM_ID } from '@angular/core';
 import { RouterModule, RouterOutlet } from '@angular/router';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-root',
@@ -10,5 +11,12 @@ import { RouterModule, RouterOutlet } from '@angular/router';
 })
 export class AppComponent {
   title = 'ColeXpertApp';
-  
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {
+    if (isPlatformBrowser(this.platformId)) {
+      // Cargar Plotly solo en el navegador
+      import('plotly.js-dist-min').then(() => {
+        console.log('Plotly cargado en el navegador');
+      });
+    }
+  }
 }

@@ -28,7 +28,11 @@
               "src/custom-theme.scss",
               "src/styles.css"
             ],
-            "scripts": [],
+            "scripts": [              {
+              "input": "node_modules/plotly.js-dist-min/plotly.min.js",
+              "inject": false,
+              "bundleName": "plotly"
+            }],
             "server": "src/main.server.ts",
             "prerender": true,
             "ssr": {
@@ -89,7 +93,7 @@
             "styles": [
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": ["node_modules/plotly.js-dist-min/plotly.min.js"]
           }
         }
       }

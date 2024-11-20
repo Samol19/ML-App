@@ -1,0 +1,255 @@
+:host {
+    --default-font: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --heading-font: "Poppins", sans-serif;
+    --nav-font: "Inter", sans-serif;
+    --background-color: #ffffff;
+    --default-color: #000000;
+    --heading-color: #000000;
+    --accent-color: #287dd7;
+    --surface-color: #ffffff;
+    --contrast-color: #ffffff;
+  }
+  
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: var(--default-font);
+    color: var(--default-color);
+    background-color: var(--background-color);
+    line-height: 1.6;
+  }
+  
+  .container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+  
+  .header {
+    padding: 15px 0;
+    position: sticky;
+    top: 0;
+    background-color: var(--background-color);
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .logo {
+    text-decoration: none;
+  }
+  
+  .sitename {
+    font-size: 30px;
+    font-weight: 700;
+    color: var(--heading-color);
+  }
+  
+  .sitename span {
+    color: var(--accent-color);
+  }
+  
+  .navmenu ul {
+    list-style-type: none;
+    display: flex;
+  }
+  
+  .navmenu li {
+    margin-left: 30px;
+  }
+  
+  .navmenu a {
+    color: var(--default-color);
+    text-decoration: none;
+    font-size: 16px;
+    font-family: var(--nav-font);
+    font-weight: 400;
+    transition: color 0.3s;
+  }
+  
+  .navmenu a:hover, .navmenu a.active {
+    color: var(--accent-color);
+  }
+  
+  .top-categories {
+    padding: 60px 0;
+    background-color: #f8f9fa;
+  }
+  
+  .section-title {
+    font-size: 2rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 2rem;
+    color: #333;
+  }
+  
+  .categories-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin-top: 40px;
+  }
+  
+  .category-card {
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .category-card:hover {
+    transform: translateY(-5px);
+  }
+  
+  .category-title {
+    color: var(--accent-color);
+    margin-bottom: 15px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .expand-icon {
+    font-size: 0.8rem;
+  }
+  
+  .category-list {
+    list-style-type: none;
+    padding: 0;
+    overflow: hidden;
+  }
+  
+  .category-item {
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+  }
+  
+  .category-item:hover {
+    background-color: #f0f0f0;
+  }
+  
+  .percentage {
+    color: #16a34a;
+    font-weight: bold;
+  }
+  
+  .footer {
+    background-color: #1c355e;
+    color: #abc4e0;
+    padding: 40px 0;
+  }
+  
+  .footer-content {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  
+  .footer-about, .footer-links, .footer-contact {
+    flex: 1;
+    min-width: 250px;
+  }
+  
+  .footer h4 {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 15px;
+    color: #ffffff;
+  }
+  
+  .footer p, .footer ul, .footer li {
+    font-size: 14px;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .footer ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .footer a {
+    text-decoration: none;
+    color: #abc4e0;
+    transition: color 0.3s;
+  }
+  
+  .footer a:hover {
+    color: #375a77;
+  }
+  
+  .footer li {
+    margin-bottom: 10px;
+  }
+  
+  .footer li i {
+    margin-right: 10px;
+    vertical-align: middle;
+    font-size: 20px;
+  }
+  
+  .footer-bottom {
+    text-align: center;
+    margin-top: 30px;
+    font-size: 12px;
+    color: #6c757d;
+  }
+  
+  @media (max-width: 768px) {
+    .header-content {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    .navmenu {
+      margin-top: 15px;
+    }
+  
+    .navmenu ul {
+      flex-direction: column;
+    }
+  
+    .navmenu li {
+      margin-left: 0;
+      margin-bottom: 10px;
+    }
+  
+    .categories-grid {
+      grid-template-columns: 1fr;
+    }
+  
+    .footer-content {
+      flex-direction: column;
+    }
+  }
+  
+  .loading, .error {
+    text-align: center;
+    padding: 20px;
+    font-size: 1.1rem;
+    color: var(--accent-color);
+  }
+  
+  .error {
+    color: #dc2626;
+  }

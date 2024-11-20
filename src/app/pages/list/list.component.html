@@ -1,0 +1,78 @@
+<div class="top-categories-page">
+    <header class="header">
+      <div class="container">
+        <div class="header-content">
+          <a href="index.html" class="logo">
+            <h1 class="sitename"><span>Pred</span>MarketCap</h1>
+          </a>
+          <nav class="navmenu">
+            <ul>
+              <li><a href="">LightGBM</a></li>
+              <li><a href="sarimax">SARIMAX</a></li>
+              <li><a href="#about" class="active">Low MarketCap List</a></li>
+              <li><a href="#service">Grupo 4</a></li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </header>
+  
+    <main>
+      <section class="top-categories">
+        <div class="container">
+          <h2 class="section-title">Top Categories (SARIMAX)</h2>
+          <div *ngIf="loading" class="loading">Loading...</div>
+          <div *ngIf="error" class="error">{{ error }}</div>
+          <div *ngIf="!loading && !error" class="categories-grid">
+            <div *ngFor="let category of categories | keyvalue" class="category-card">
+              <h3 (click)="toggleCategory(+category.key)" class="category-title">
+                {{ categoryNames[+category.key] || 'Class ' + category.key }}
+                <span class="expand-icon">{{ isCategoryExpanded(+category.key) ? '▼' : '▶' }}</span>
+              </h3>
+              <ul [@expandCollapse]="isCategoryExpanded(+category.key) ? 'expanded' : 'collapsed'" class="category-list">
+                <li *ngFor="let item of category.value" (click)="onItemClick(item)" class="category-item">
+                  <strong>{{ item.name }}</strong> ({{ item.token }}) - 
+                  Prediccion de aumento al mes: <span class="percentage">{{ item.one_month_predict.toFixed(2) }}%</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  
+    <footer id="service" class="footer">
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-about">
+            <h4>Pred<span>MarketCap</span></h4>
+            <p>La plataforma de análisis de criptomonedas más confiable. Predice y analiza las mejores oportunidades del mercado.</p>
+          </div>
+          <div class="footer-links">
+            <h4>Enlaces Rápidos</h4>
+            <ul>
+              <li><a href="#hero"><i class="material-icons">home</i> Inicio</a></li>
+              <li><a href="#about"><i class="material-icons">info</i> Sobre Nosotros</a></li>
+              <li><a href="#services"><i class="material-icons">group</i> Grupo 4</a></li>
+            </ul>
+          </div>
+          <div class="footer-contact">
+            <h4>Contacto</h4>
+            <ul>
+              <li><i class="material-icons">email</i> <a href="mailto:info@predmarketcap.com">info.com</a></li>
+              <li><i class="material-icons">phone</i> <a href="tel:+1234567890">+1 234 567 890</a></li>
+              <li>
+                <i class="material-icons">share</i> Redes: 
+                <a href="#" aria-label="Facebook"><i class="material-icons">facebook</i></a>
+                <a href="#" aria-label="Twitter"><i class="material-icons">twitter</i></a>
+                <a href="#" aria-label="LinkedIn"><i class="material-icons">linkedin</i></a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>&copy; 2024 PredMarketCap. Todos los derechos reservados.</p>
+        </div>
+      </div>
+    </footer>
+  </div>

@@ -1,0 +1,115 @@
+.auction-card {
+    background-color: #ffffff;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+
+  .auction-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
+  }
+
+  .auction-image-container {
+    position: relative;
+    padding-top: 56.25%; /* 16:9 Aspect Ratio */
+    overflow: hidden;
+  }
+
+  .auction-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+
+  .auction-card:hover .auction-image {
+    transform: scale(1.05);
+  }
+
+  .auction-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.5));
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 1rem;
+  }
+
+  .auction-category, .auction-state {
+    background-color: rgba(255, 255, 255, 0.9);
+    color: #333;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
+  }
+
+  .auction-content {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+
+  .auction-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-bottom: 0.75rem;
+    color: #333;
+  }
+
+  .auction-item, .auction-price, .auction-time-remaining {
+    display: flex;
+    align-items: center;
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+    color: #666;
+  }
+
+  .auction-item mat-icon, .auction-price mat-icon, .auction-time-remaining mat-icon {
+    margin-right: 0.5rem;
+    font-size: 1.1rem;
+    color: #71c55d;
+  }
+
+  .auction-actions {
+    margin-top: auto;
+    display: flex;
+    justify-content: flex-end;
+    padding: 0.5rem 1rem;
+  }
+
+  .details-button {
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  @media (max-width: 600px) {
+    .auction-card {
+      border-radius: 0;
+      box-shadow: none;
+      border-bottom: 1px solid #eee;
+    }
+
+    .auction-card:hover {
+      transform: none;
+      box-shadow: none;
+    }
+
+    .auction-overlay {
+      opacity: 1;
+    }
+  }

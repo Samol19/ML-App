@@ -1,0 +1,25 @@
+<div class="my-bids-container">
+  <h2>Mis Pujas</h2>
+  <div *ngIf="isLoading" class="loading">Cargando pujas...</div>
+  <div *ngIf="error" class="error">{{ error }}</div>
+  <div *ngIf="!isLoading && !error">
+    <div *ngIf="auctions.length === 0" class="no-bids">
+      No has realizado ninguna puja aún.
+    </div>
+    <div *ngFor="let auction of auctions" class="auction-bid-item">
+      <app-auction-card [auction]="auction"></app-auction-card>
+      <div class="bid-info">
+        <p>Tu puja más alta: S/.{{ getHighestBid(auction.name) | number:'1.2-2' }}</p>
+        <button mat-button color="primary" (click)="toggleBids(auction.name)">
+          {{ expandedAuctions.has(auction.name) ? 'Ocultar pujas' : 'Ver pujas' }}
+        </button>
+      </div>
+      <mat-expansion-panel [expanded]="expandedAuctions.has(auction.name)">
+        <div *ngFor="let bid of getBidsForAuction(auction.name)" class="bid-detail">
+          <p>Monto: S/.{{ bid.amount | number:'1.2-2' }}</p>
+          <p>Fecha: {{ bid.date | date:'medium' }}</p>
+        </div>
+      </mat-expansion-panel>
+    </div>
+  </div>
+</div>

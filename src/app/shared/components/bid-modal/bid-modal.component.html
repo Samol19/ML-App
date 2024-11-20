@@ -1,0 +1,12 @@
+<h2 mat-dialog-title>Hacer una oferta</h2>
+    <mat-dialog-content>
+      <p>Precio actual: S/.{{ data.currentBid | number:'1.2-2' }}</p>
+      <mat-form-field>
+        <mat-label>Tu oferta (S/.)</mat-label>
+        <input matInput type="number" [(ngModel)]="bidAmount" min="{{ data.currentBid + 1 }}" step="1">
+      </mat-form-field>
+    </mat-dialog-content>
+    <mat-dialog-actions>
+      <button mat-button (click)="onCancel()">Cancelar</button>
+      <button mat-raised-button color="primary" (click)="onSubmit()" [disabled]="!isValidBid()">Confirmar oferta</button>
+    </mat-dialog-actions>

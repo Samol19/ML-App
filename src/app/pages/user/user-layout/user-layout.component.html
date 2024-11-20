@@ -1,0 +1,86 @@
+<div class="layout-wrapper">
+  <app-navbar></app-navbar>
+  
+  <mat-sidenav-container class="sidenav-container">
+    <mat-sidenav #sidenav [mode]="isMobile ? 'over' : 'side'" 
+                 [opened]="!isMobile" 
+                 class="sidebar"
+                 [fixedInViewport]="true"
+                 [fixedTopGap]="64">
+      <div class="sidebar-content">
+        <div class="sidebar-header">
+          <img src="assets/imagenes/logo-long.png" alt="ColeXpert" class="sidebar-logo">
+          <button mat-icon-button class="close-sidebar" (click)="sidenav.close()">
+            <mat-icon>close</mat-icon>
+          </button>
+        </div>
+
+        <nav class="sidebar-nav">
+          <a mat-ripple 
+             routerLink="/home/catalog" 
+             routerLinkActive="active" 
+             class="nav-item"
+             (click)="closeSidenavOnMobile()">
+            <mat-icon>gavel</mat-icon>
+            <span>Catálogo de Subastas</span>
+          </a>
+
+          <a mat-ripple 
+             routerLink="/home/my-auctions" 
+             routerLinkActive="active" 
+             class="nav-item"
+             (click)="closeSidenavOnMobile()">
+            <mat-icon>local_offer</mat-icon>
+            <span>Mis Subastas</span>
+          </a>
+
+          <a mat-ripple 
+             routerLink="/home/my-bids" 
+             routerLinkActive="active" 
+             class="nav-item"
+             (click)="closeSidenavOnMobile()">
+            <mat-icon>payments</mat-icon>
+            <span>Mis Pujas</span>
+          </a>
+
+          <a mat-ripple 
+             routerLink="/home/profile" 
+             routerLinkActive="active" 
+             class="nav-item"
+             (click)="closeSidenavOnMobile()">
+            <mat-icon>person</mat-icon>
+            <span>Mi Perfil</span>
+          </a>
+        </nav>
+
+        <div class="sidebar-footer">
+          <button mat-flat-button 
+                    color="accent" 
+                    class="random-auction-btn"
+                    (click)="goToRandomAuction()">
+              <mat-icon>shuffle</mat-icon>
+              Subasta Aleatoria
+            </button>
+        </div>
+      </div>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+      <div class="content-wrapper">
+        <button mat-icon-button 
+                class="toggle-sidebar" 
+                (click)="sidenav.toggle()"
+                matTooltip="Menú"
+                [matTooltipPosition]="'right'">
+          <mat-icon>menu</mat-icon>
+        </button>
+        
+        <main class="main-content">
+          <router-outlet></router-outlet>
+        </main>
+      </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+
+  <app-footer></app-footer>
+</div>

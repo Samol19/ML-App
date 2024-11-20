@@ -1,0 +1,33 @@
+.my-bids-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+.auction-bid-item {
+  margin-bottom: 20px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.bid-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: #f5f5f5;
+}
+.bid-detail {
+  padding: 10px;
+  border-bottom: 1px solid #e0e0e0;
+}
+.bid-detail:last-child {
+  border-bottom: none;
+}
+.loading, .error, .no-bids {
+  text-align: center;
+  padding: 20px;
+}
+.no-bids {
+  font-style: italic;
+  color: #666;
+}

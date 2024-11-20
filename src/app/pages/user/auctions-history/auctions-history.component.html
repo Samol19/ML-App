@@ -1,0 +1,79 @@
+<div class="my-auctions-container">
+    <h2>Mis Artículos y Subastas</h2>
+    <div class="action-buttons">
+      <button mat-raised-button color="primary" (click)="createItem()" class="create-btn">
+        <mat-icon>add</mat-icon>
+        Crear Nuevo Artículo
+      </button>
+      <button mat-raised-button color="accent" (click)="createAuction()" class="create-btn">
+        <mat-icon>gavel</mat-icon>
+        Crear Nueva Subasta
+      </button>
+    </div>
+
+    <div *ngIf="isLoading" class="loading">
+      <mat-spinner></mat-spinner>
+      <p>Cargando tus artículos y subastas...</p>
+    </div>
+
+    <div *ngIf="error" class="error">
+      <mat-icon>error</mat-icon>
+      <p>{{ error }}</p>
+    </div>
+
+    <div *ngIf="!isLoading && !error && items.length === 0" class="no-items">
+      <p>No tienes artículos creados. ¿Deseas crear uno?</p>
+      <button mat-raised-button color="primary" (click)="createItem()">
+        Crear Mi Primer Artículo
+      </button>
+    </div>
+
+    <mat-tab-group *ngIf="!isLoading && !error && items.length > 0">
+      <mat-tab label="Mis Artículos">
+        <div class="items-grid">
+          <mat-expansion-panel *ngFor="let item of items">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                {{ item.name }}
+              </mat-panel-title>
+              <mat-panel-description>
+                Categoría: {{ item.category_name }}
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <div class="item-details">
+              <img [src]="getImageSrc(item.img)" [alt]="item.name" class="item-image">
+              <p><strong>Descripción:</strong> {{ item.description }}</p>
+              <p><strong>Precio inicial:</strong> S/.{{ item.init_price | number:'1.2-2' }}</p>
+              <p><strong>Precio final:</strong> S/.{{ item.final_price | number:'1.2-2' }}</p>
+            </div>
+            <div class="item-actions">
+              <button mat-icon-button color="primary" (click)="editItem(item.id)" matTooltip="Editar artículo">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-icon-button color="warn" (click)="deleteItem(item.id)" matTooltip="Eliminar artículo">
+                <mat-icon>delete</mat-icon>
+              </button>
+              <button mat-raised-button color="accent" (click)="createAuctionForItem(item.id)" *ngIf="!getAuctionForItem(item.id)">
+                Crear Subasta
+              </button>
+            </div>
+          </mat-expansion-panel>
+        </div>
+      </mat-tab>
+      <mat-tab label="Mis Subastas">
+        <div class="auctions-grid">
+          <div *ngFor="let auction of auctions" class="auction-item">
+            <app-auction-card [auction]="auction"></app-auction-card>
+            <div class="auction-actions">
+              <button mat-icon-button color="primary" (click)="editAuction(auction.id)" matTooltip="Editar subasta">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-icon-button color="warn" (click)="deleteAuction(auction.id)" matTooltip="Eliminar subasta">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
